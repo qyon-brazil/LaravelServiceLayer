@@ -1,0 +1,27 @@
+{
+    "license": "MIT",
+    "name": "qyon/servicelayer",
+    "description": "Service Layer with Data Transfer Object",
+    "autoload": {
+        "psr-4": {
+            "Qyon\\ServiceLayer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Diego Silva",
+            "email": "diego@qyon.com"
+        }
+    ],
+    "support": {
+        "email": "diego@qyon.com"
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Qyon\\ServiceLayer\\Provider\\QyonServiceProvider"				
+            ]
+        }
+    }
+}

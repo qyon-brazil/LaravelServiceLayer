@@ -9,7 +9,7 @@ use Qyon\ServiceLayer\Service\Contract\ServiceInterface;
 /**
  * BaseService Classe base para as classes de serviço
  *
- * @author Diego Silva <diego@qyon.com>
+ * @author Diego Silva <diego.silva@qyon.com>
  */
 class BaseService implements ServiceInterface
 {    

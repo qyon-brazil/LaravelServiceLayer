@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 /**
  * ServiceInterface Interface para as classes de serviço
  *
- * @author Diego Silva <diego@qyon.com>
+ * @author Diego Silva <diego.silva@qyon.com>
  */
 interface ServiceInterface
 {

@@ -25,7 +25,8 @@ class BaseService implements ServiceInterface
         $this->dto = new DataTransferObject();        
     }
 
-    public function index(){
+    public function index(Request $request)
+    {
         return $this->dto;
     }
 

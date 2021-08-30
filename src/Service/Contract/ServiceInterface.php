@@ -18,7 +18,7 @@ interface ServiceInterface
      *
      * @return DataTransferObject
      */
-    public function index();
+    public function index(Request $request);
         
         
     /**

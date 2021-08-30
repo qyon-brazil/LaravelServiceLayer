@@ -3,6 +3,7 @@
 namespace Qyon\ServiceLayer\Service\Contract;
 
 use Illuminate\Http\Request;
+use Qyon\ServiceLayer\DataTransferObject;
 
 /**
  * ServiceInterface Interface para as classes de serviço
@@ -17,7 +18,7 @@ interface ServiceInterface
      *
      * @return DataTransferObject
      */
-    public function index();
+    public function index(Request $request);
         
         
     /**

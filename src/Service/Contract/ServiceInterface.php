@@ -2,13 +2,11 @@
 
 namespace Qyon\ServiceLayer\Service\Contract;
 
-use Illuminate\Http\Request;
 use Qyon\ServiceLayer\DataTransferObject;
 
 /**
  * ServiceInterface Interface para as classes de serviço
  *
- * @author Diego Silva <diego@qyon.com>
  */
 interface ServiceInterface
 {
@@ -18,7 +16,7 @@ interface ServiceInterface
      *
      * @return DataTransferObject
      */
-    public function index(Request $request);
+    public function index($request, $model);
         
         
     /**
@@ -27,7 +25,7 @@ interface ServiceInterface
      * @param  mixed $request
      * @return DataTransferObject
      */
-    public function store(Request $request);
+    public function store($request, $model);
     
     /**
      * show
@@ -35,7 +33,7 @@ interface ServiceInterface
      * @param  mixed $id
      * @return DataTransferObject
      */
-    public function show($id);
+    public function show($id, $model);
     
     /**
      * update
@@ -44,7 +42,7 @@ interface ServiceInterface
      * @param  mixed $id
      * @return DataTransferObject
      */
-    public function update($request, $id);
+    public function update($request, $id, $model);
         
     /**
      * destroy
@@ -52,5 +50,5 @@ interface ServiceInterface
      * @param  mixed $id
      * @return DataTransferObject
      */
-    public function destroy($id);
+    public function destroy($id, $model);
 }

@@ -19,6 +19,20 @@ class DataTransferObject extends ServiceProvider
     private $success;
 
     /**
+     * include
+     *
+     * @var array
+     */
+    private $include;
+
+    /**
+     * index
+     *
+     * @var bool
+     */
+    private $index;
+
+    /**
      * message
      *
      * @var string
@@ -35,6 +49,8 @@ class DataTransferObject extends ServiceProvider
     public function __construct()
     {
         $this->success = false;
+        $this->include = [];
+        $this->index = false;
         $this->message = "";
         $this->data = null;
     }
@@ -48,6 +64,28 @@ class DataTransferObject extends ServiceProvider
     public function setSuccess($value)
     {
         $this->success = $value;
+    }
+
+    /**
+     * setInclude
+     *
+     * @param  array $value
+     * @return void
+     */
+    public function setInclude($value)
+    {
+        $this->include = $value;
+    }
+
+    /**
+     * setIndex
+     *
+     * @param  bool $value
+     * @return void
+     */
+    public function setIndex($value)
+    {
+        $this->index = $value;
     }
     
     /**
@@ -80,6 +118,26 @@ class DataTransferObject extends ServiceProvider
     public function getSuccess()
     {
         return $this->success;
+    }
+
+    /**
+     * include
+     *
+     * @return bool
+     */
+    public function getInclude()
+    {
+        return $this->include;
+    }
+
+    /**
+     * include
+     *
+     * @return bool
+     */
+    public function getIndex()
+    {
+        return $this->index;
     }
     
     /**

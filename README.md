@@ -12,8 +12,7 @@ Package Laravel para Implementação da camada de Serviço
 ```
 composer require qyon/servicelayer
 ```
-
 ### Sugestão de Utilização
-1. No seu projeto laravel, crie uma pasta **Services** em **app\Http\\**
+1. No seu projeto laravel, crie uma pasta **Services** em **app\\**
 2. Crie uma nova classe que extenda de **BaseService**
 3. Adicione no **use** o caminho **Qyon\ServiceLayer\Service\BaseService;**

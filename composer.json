@@ -10,11 +10,15 @@
     "authors": [
         {
             "name": "Diego Silva",
-            "email": "diego@qyon.com"
-        }
+            "email": "diego.silva@qyon.com"
+        },
+        {
+            "name": "Luis Gustavo Santarosa",
+            "email": "gustavo.santarosa@qyon.com"
+        }        
     ],
     "support": {
-        "email": "diego@qyon.com"
+        "email": "diego.silva@qyon.com"
     },
     "minimum-stability": "dev",
     "extra": {

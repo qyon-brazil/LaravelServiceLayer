@@ -7,7 +7,8 @@ use Illuminate\Support\ServiceProvider;
 /**
  * DataTransferObject Classe que serve para transferência de dados entre o Service e o Controller
  *
- * @author Diego Silva <diego@qyon.com>
+ * @author Diego Silva <diego.silva@qyon.com>
+ *
  */
 class DataTransferObject extends ServiceProvider
 {    

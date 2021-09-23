@@ -7,6 +7,9 @@ use Illuminate\Support\ServiceProvider;
 /**
  * ReturnPrepare Serve para responder requisições no Controller
  * Nota: baseada na Classe DataPrepare (Utilizada na API do ERP) 
+ * 
+ * @author Diego Silva <diego.silva@qyon.com> 
+ * @author Luis Gustavo Santarosa <gustavo.santarosa@qyon.com>
  *
  */
 class ReturnPrepare extends ServiceProvider

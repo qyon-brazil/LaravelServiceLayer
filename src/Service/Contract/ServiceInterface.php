@@ -13,18 +13,20 @@ interface ServiceInterface
         
     /**
      * __construct
-     *
+     * 
+     * Opcionais
+     * 
      * @param [Model] $model Uma instância da model
      * @param [Array] $validation Uma instância da classe de validação
      */
-    public function __construct($model = null, $validationRules = null);
+    public function __construct();
 
     /**
      * index
      *
      * @return DataTransferObject
      */
-    public function index($request, $model);
+    public function index();
         
     /**
      * Busca os dados com base em um id ou retorna todos
@@ -32,7 +34,7 @@ interface ServiceInterface
      * @param mixed $id
      * @return void
      */
-    function getData($id);
+    public function getData($id);
         
     /**
      * Salva os dados

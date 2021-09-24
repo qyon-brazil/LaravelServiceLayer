@@ -54,7 +54,7 @@ class BaseService implements ServiceInterface
      * @param mixed $id
      * @return void
      */
-    private function getData($id = null)
+    public function getData($id = null)
     {
 
         if ($id) {
@@ -77,7 +77,7 @@ class BaseService implements ServiceInterface
      */
     public function index()
     {
-        $returnData = $this->getData();
+        $returnData = $this->getData(); 
 
         $this->dto->setSuccess(true);
         $this->dto->setMessage('Successfully founded');

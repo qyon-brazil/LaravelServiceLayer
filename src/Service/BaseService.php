@@ -2,14 +2,16 @@
 
 namespace Qyon\ServiceLayer\Service;
 
+use Exception;
+use Illuminate\Support\Facades\Validator;
 use Qyon\ServiceLayer\DataTransferObject;
 use Qyon\ServiceLayer\Service\Contract\ServiceInterface;
 
 /**
  * BaseService Classe base para as classes de serviço
  *
- * @author Diego Silva <diego@qyon.com>
- * @author Guilherme Andreoti <diego@qyon.com>
+ * @author Diego Silva <diego.silva@qyon.com>
+ * @author Guilherme Andreoti <guilherme.andreoti@qyon.com>
  */
 class BaseService implements ServiceInterface
 {
@@ -19,18 +21,19 @@ class BaseService implements ServiceInterface
      * @var DataTransferObject
      */
     protected $dto;
+    private $validation;
     private $model;
 
     /**
      * __construct
      *
      * @param [Model] $model Uma instância da model
-     * @param [Array] $validationRules Um array com as regras de validação no padrão do laravel
+     * @param [Array] $validation Uma instância da classe de validação
      */
-    public function __construct($model = null, $validationRules = null)
+    public function __construct($model = null, $validation = null)
     {
         $this->dto = new DataTransferObject();
-        $this->validationRules = $validationRules;
+        $this->validation = $validation;
         $this->model = $model;
     }
 
@@ -42,7 +45,7 @@ class BaseService implements ServiceInterface
      */
     public function validate($data)
     {
-        Validator::validate($data, $this->validationRules);
+        Validator::validate($data, $this->validation->rules(), $this->validation->messages());
     }
 
     /**

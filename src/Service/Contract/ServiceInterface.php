@@ -15,7 +15,7 @@ interface ServiceInterface
      * __construct
      *
      * @param [Model] $model Uma instância da model
-     * @param [Array] $validationRules Um array com as regras de validação no padrão do laravel
+     * @param [Array] $validation Uma instância da classe de validação
      */
     public function __construct($model = null, $validationRules = null);
 

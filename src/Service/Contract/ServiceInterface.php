@@ -12,43 +12,58 @@ interface ServiceInterface
 {
         
     /**
+     * __construct
+     *
+     * @param [Model] $model Uma instância da model
+     * @param [Array] $validationRules Um array com as regras de validação no padrão do laravel
+     */
+    public function __construct($model = null, $validationRules = null);
+
+    /**
      * index
      *
      * @return DataTransferObject
      */
     public function index($request, $model);
         
+    /**
+     * Busca os dados com base em um id ou retorna todos
+     *
+     * @param mixed $id
+     * @return void
+     */
+    function getData($id);
         
     /**
-     * store
+     * Salva os dados
      *
-     * @param  mixed $request
+     * @param array $data
      * @return DataTransferObject
      */
-    public function store($request, $model);
+    public function store($data);
     
     /**
-     * show
+     * Exibe um registro
      *
-     * @param  mixed $id
+     * @param mixed $id
      * @return DataTransferObject
      */
-    public function show($id, $model);
+    public function show($id);
     
     /**
-     * update
+     * Atualiza um registro
      *
-     * @param  mixed $request
-     * @param  mixed $id
+     * @param [array] $data
+     * @param mixed $id
      * @return DataTransferObject
      */
-    public function update($request, $id, $model);
+    public function update($data, $id);
         
     /**
-     * destroy
+     * Deleta um registro
      *
-     * @param  mixed $id
+     * @param mixed $id
      * @return DataTransferObject
      */
-    public function destroy($id, $model);
+    public function destroy($id);
 }

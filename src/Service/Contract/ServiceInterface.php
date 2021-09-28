@@ -29,14 +29,6 @@ interface ServiceInterface
     public function index();
         
     /**
-     * Busca os dados com base em um id ou retorna todos
-     *
-     * @param mixed $id
-     * @return void
-     */
-    public function getData($id);
-        
-    /**
      * Salva os dados
      *
      * @param array $data

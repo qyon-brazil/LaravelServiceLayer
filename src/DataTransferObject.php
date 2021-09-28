@@ -160,4 +160,30 @@ class DataTransferObject extends ServiceProvider
     {
         return $this->data;
     }        
+
+    /**
+     * successMessage
+     *
+     * @param  string $message
+     * @param  mixed $data
+     * @return void
+     */
+    public function successMessage($message,$data = null){
+        $this->setSuccess(true);
+        $this->setMessage($message); 
+        $this->setData($data);
+    }
+
+    /**
+     * errorMessage
+     *
+     * @param  string $message
+     * @param  mixed $data
+     * @return void
+     */
+    public function errorMessage($message,$data = null){
+        $this->setSuccess(false);
+        $this->setMessage($message); 
+        $this->setData($data);
+    }
 }

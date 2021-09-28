@@ -21,8 +21,8 @@ class BaseService implements ServiceInterface
      * @var DataTransferObject
      */
     protected $dto;
-    private $validation;
-    private $model;
+    protected $validation;
+    protected $model;
 
     /**
      * __construct
@@ -43,9 +43,17 @@ class BaseService implements ServiceInterface
      * @param [Array] $data 
      * @return void
      */
-    public function validate($data)
+    public function validate($data,$currentId = null)
     {
-        Validator::validate($data, $this->validation->rules(), $this->validation->messages());
+        //Checks if the validate method have a ID param and, if necessary, sends it
+        $method = new \ReflectionMethod(get_class($this->validation), 'rules');
+        $methodParams = $method->getParameters(); 
+
+        if((count($methodParams) == 1 && $methodParams[0]->name == 'id' )){
+            Validator::validate($data, $this->validation->rules($currentId), $this->validation->messages());
+        }else{ 
+            Validator::validate($data, $this->validation->rules(), $this->validation->messages());
+        }
     }
 
     /**
@@ -131,9 +139,9 @@ class BaseService implements ServiceInterface
      */
     public function update($data, $id)
     {
-        $this->validate($data);
+        $this->validate($data, $id);
 
-        $returnData = $this->model::where('id', $id)->update($data);
+        $returnData = $this->model::find($id)->update($data);
 
         if (is_null($returnData) || ($returnData == 0)) {
             throw new Exception("Not found", 406);

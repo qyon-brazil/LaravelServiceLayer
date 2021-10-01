@@ -18,7 +18,7 @@ class BaseService implements ServiceInterface
     /**
      * Data Transfer Object
      *
-     * @var DataTransferObject
+     * @var Qyon\ServiceLayer\DataTransferObject
      */
     protected $dto;
     protected $validation;
@@ -81,16 +81,12 @@ class BaseService implements ServiceInterface
     /**
      * Retorna todos os dados da model
      *
-     * @return DataTransferObject
+     * @return Qyon\ServiceLayer\DataTransferObject
      */
     public function index()
     {
         $returnData = $this->getData(); 
-
-        $this->dto->setSuccess(true);
-        $this->dto->setMessage('Successfully founded');
-        $this->dto->setData($returnData);
-
+        $this->dto->successMessage('Successfully found',$returnData);
         return $this->dto;
     }
 
@@ -98,18 +94,14 @@ class BaseService implements ServiceInterface
      * Salva os dados
      *
      * @param array $data
-     * @return DataTransferObject
+     * @return Qyon\ServiceLayer\DataTransferObject
      */
     public function store($data)
     {
         $this->validate($data);
 
         $returnData = $this->model::create($data);
-
-        $this->dto->setSuccess(true);
-        $this->dto->setMessage('Successfully created');
-        $this->dto->setData($returnData);
-
+        $this->dto->successMessage('Successfully created',$returnData);
         return $this->dto;
     }
 
@@ -117,16 +109,12 @@ class BaseService implements ServiceInterface
      * Exibe um registro
      *
      * @param mixed $id
-     * @return DataTransferObject
+     * @return Qyon\ServiceLayer\DataTransferObject
      */
     public function show($id)
     {
         $returnData = $this->getData($id);
-
-        $this->dto->setSuccess(true);
-        $this->dto->setMessage('Successfully founded');
-        $this->dto->setData($returnData);
-
+        $this->dto->successMessage('Successfully found',$returnData);
         return $this->dto;
     }
 
@@ -135,7 +123,7 @@ class BaseService implements ServiceInterface
      *
      * @param [array] $data
      * @param mixed $id
-     * @return DataTransferObject
+     * @return Qyon\ServiceLayer\DataTransferObject
      */
     public function update($data, $id)
     {
@@ -147,10 +135,7 @@ class BaseService implements ServiceInterface
             throw new Exception("Not found", 406);
         }
 
-        $this->dto->setSuccess(true);
-        $this->dto->setMessage('Successfully updated');
-        $this->dto->setData($returnData);
-
+        $this->dto->successMessage('Successfully updated',$returnData);
         return $this->dto;
     }
 
@@ -158,7 +143,7 @@ class BaseService implements ServiceInterface
      * Deleta um registro
      *
      * @param mixed $id
-     * @return DataTransferObject
+     * @return Qyon\ServiceLayer\DataTransferObject
      */
     public function destroy($id)
     {
@@ -168,10 +153,7 @@ class BaseService implements ServiceInterface
             throw new Exception("Not found", 406);
         }
 
-        $this->dto->setSuccess(true);
-        $this->dto->setMessage('Successfully deleted');
-        $this->dto->setData(null);
-
+        $this->dto->successMessage('Successfully deleted',$returnData);
         return $this->dto;
     }
 }

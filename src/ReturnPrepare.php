@@ -70,6 +70,8 @@ class ReturnPrepare extends ServiceProvider
     {
         return self::getMessage(
             true,
+            [],
+            false,
             $message,
             $code,
             $params,
@@ -81,6 +83,8 @@ class ReturnPrepare extends ServiceProvider
     {
         return self::getMessage(
             false,
+            [],
+            false,            
             $message,
             $code,
             $params,

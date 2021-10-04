@@ -40,7 +40,7 @@ class ReturnPrepare extends ServiceProvider
         }
 
         if (is_array($data) && count($data) > 0) {
-            $retArr['data'] = $data;
+            $retArr['data'] = count($data) == 1 ? $data[0] : $data;
         }
 
         if (is_array($params)) {

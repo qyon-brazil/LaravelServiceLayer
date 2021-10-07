@@ -18,10 +18,10 @@ class ReturnPrepare extends ServiceProvider
 
     public static function getMessageDTO(DataTransferObject $dto, $http_code)
     {
-        return self::getMessage($dto->getSuccess(), $dto->getInclude(), $dto->getIndex(), $dto->getMessage(), $http_code, null, $dto->getData());
+        return self::getMessage($dto->getSuccess(), $dto->getInclude(), $dto->getIndex(), $dto->getMessage(), $http_code, null, $dto->getData(), $dto->getErrors());
     }
 
-    private static function getMessage($success, $include = [], $index = false, $message, $code, $params = [], $data = [])
+    private static function getMessage($success, $include = [], $index = false, $message, $code, $params = [], $data = [], $errors = null)
     {
         $retArr = array(
             "success" => $success,
@@ -34,19 +34,15 @@ class ReturnPrepare extends ServiceProvider
             $retArr["include"] = $include;
         }
 
+        if (!is_null($errors)) {
+            $retArr["errors"] = $errors;
+        }
+
         $data = gettype($data) != 'array' ? [$data] : $data;
 
         if ($index) {
             return array_merge($retArr, $data[0]);
         }
-
-        $retArr = array(
-            "success" => $success,
-            "code" => $code,
-            "msg" => $message,
-            "message" => $message,
-            "include" => $include,
-        );
 
         if (isset($data[0]) && count($data) > 1) {
 

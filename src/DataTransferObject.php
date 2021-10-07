@@ -47,6 +47,13 @@ class DataTransferObject extends ServiceProvider
      */
     private $data;
 
+    /**
+     * errors
+     *
+     * @var mixed
+     */
+    private $errors;
+
     public function __construct()
     {
         $this->success = false;
@@ -54,6 +61,7 @@ class DataTransferObject extends ServiceProvider
         $this->index = false;
         $this->message = "";
         $this->data = null;
+        $this->errors = null;
     }
 
     /**
@@ -110,6 +118,17 @@ class DataTransferObject extends ServiceProvider
     {
         $this->data = $value;
     }
+
+    /**
+     * errors
+     *
+     * @param  mixed $value
+     * @return void
+     */
+    public function setErrors($value)
+    {
+        $this->errors = $value;
+    }    
     
     /**
      * success
@@ -161,6 +180,16 @@ class DataTransferObject extends ServiceProvider
         return $this->data;
     }        
 
+     /**
+     * errors
+     *
+     * @return mixed $value
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }            
+
     /**
      * successMessage
      *
@@ -179,11 +208,13 @@ class DataTransferObject extends ServiceProvider
      *
      * @param  string $message
      * @param  mixed $data
+     * @param  mixed $error
      * @return void
      */
-    public function errorMessage($message,$data = null){
+    public function errorMessage($message,$data = null,$errors=null){
         $this->setSuccess(false);
         $this->setMessage($message); 
         $this->setData($data);
+        $this->setErrors($errors);
     }
 }

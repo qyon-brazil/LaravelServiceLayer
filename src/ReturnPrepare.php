@@ -6,9 +6,9 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * ReturnPrepare Serve para responder requisições no Controller
- * Nota: baseada na Classe DataPrepare (Utilizada na API do ERP) 
- * 
- * @author Diego Silva <diego.silva@qyon.com> 
+ * Nota: baseada na Classe DataPrepare (Utilizada na API do ERP)
+ *
+ * @author Diego Silva <diego.silva@qyon.com>
  * @author Luis Gustavo Santarosa <gustavo.santarosa@qyon.com>
  *
  */
@@ -18,17 +18,33 @@ class ReturnPrepare extends ServiceProvider
 
     public static function getMessageDTO(DataTransferObject $dto, $http_code)
     {
-        return self::getMessage($dto->getSuccess(), $dto->getInclude(), $dto->getIndex(), $dto->getMessage(), $http_code, null, [$dto->getData()]);
+        return self::getMessage($dto->getSuccess(), $dto->getInclude(), $dto->getIndex(), $dto->getMessage(), $http_code, null, $dto->getData());
     }
 
     private static function getMessage($success, $include = [], $index = false, $message, $code, $params = [], $data = [])
     {
+        $retArr = array(
+            "success" => $success,
+            "code" => $code,
+            "msg" => $message,
+            "message" => $message,
+        );
 
+        if (!is_null($include)) {
+            $retArr["include"] = $include;
+        }
+
+        $data = gettype($data) != 'array' ? [$data] : $data;
+
+        if ($index) {
+            return array_merge($retArr, $data[0]);
+        }
 
         $retArr = array(
             "success" => $success,
-            "code"    => $code,
-            "msg"     => $message,
+            "code" => $code,
+            "msg" => $message,
+            "message" => $message,
             "include" => $include,
         );
 
@@ -39,7 +55,7 @@ class ReturnPrepare extends ServiceProvider
             ]);
         }
 
-        if (is_array($data) && count($data) > 0) {
+        if (count($data) > 0) {
             $retArr['data'] = count($data) == 1 ? $data[0] : $data;
         }
 
@@ -51,17 +67,9 @@ class ReturnPrepare extends ServiceProvider
             }
         }
 
-        if($index){
-            $retArr = array(
-                "success" => $success,
-                "code"    => $code,
-                "msg"     => $message,
-                "include" => $include,
-            );
-
-            $retArr = array_merge($retArr, $data[0]);
+        if (empty($retArr["data"])) {
+            unset($retArr["data"]); 
         }
-        // ========================================
 
         return $retArr;
     }
@@ -84,7 +92,7 @@ class ReturnPrepare extends ServiceProvider
         return self::getMessage(
             false,
             [],
-            false,            
+            false,
             $message,
             $code,
             $params,
@@ -95,9 +103,10 @@ class ReturnPrepare extends ServiceProvider
     public static function makeMessage($success, $message, $code, $data = null)
     {
         $retArr = array(
-            "success"   => $success,
-            "code"      => $code,
-            "msg"       => $message,
+            "success" => $success,
+            "code" => $code,
+            "msg" => $message,
+            "message" => $message,
         );
 
         if (isset($data)) {

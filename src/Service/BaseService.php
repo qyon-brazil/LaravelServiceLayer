@@ -71,10 +71,6 @@ class BaseService implements ServiceInterface
             $returnData = $this->model->get();
         }
 
-        if (empty($returnData)) {
-            throw new Exception("Not found", 406);
-        }
-
         return $returnData;
     }
 

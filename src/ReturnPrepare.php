@@ -41,7 +41,7 @@ class ReturnPrepare extends ServiceProvider
         $data = gettype($data) != 'array' ? [$data] : $data;
 
         if ($index) {
-            return array_merge($retArr, $data[0]);
+            return array_merge($retArr, $data);
         }
 
         if (isset($data[0]) && count($data) > 1) {

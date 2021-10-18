@@ -50,9 +50,11 @@ class ReturnPrepare extends ServiceProvider
                 "totalindata" => count($data),
             ]);
         }
-        
-        $retArr['data'] = $data;
-        
+
+        if (count($data) > 0) {
+            $retArr['data'] = count($data) == 1 ? $data[0] : $data;
+        }
+
         if (is_array($params)) {
             foreach ($params as $name => $value) {
                 if (!in_array($value, self::$_forbidenNames)) {

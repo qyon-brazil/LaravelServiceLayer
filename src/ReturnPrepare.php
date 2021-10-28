@@ -14,7 +14,7 @@ use Illuminate\Support\ServiceProvider;
  */
 class ReturnPrepare extends ServiceProvider
 {
-    private static $_forbidenNames = ['code', 'msg', 'data', 'success'];
+    private static $_forbidenNames = ['code', 'msg', 'message', 'data', 'success'];
 
     public static function getMessageDTO(DataTransferObject $dto, $http_code)
     {
@@ -29,6 +29,7 @@ class ReturnPrepare extends ServiceProvider
             "success" => $success,
             "code"    => $code,
             "msg"     => $message,
+            "message" => $message,
             "include" => $include,
         );
 

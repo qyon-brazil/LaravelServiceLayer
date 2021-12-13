@@ -14,60 +14,27 @@ use Illuminate\Support\ServiceProvider;
  */
 class ReturnPrepare extends ServiceProvider
 {
-    private static $_forbidenNames = ['code', 'msg', 'data', 'success'];
-
-    public static function getMessageDTO(DataTransferObject $dto, $http_code)
+    public static function getMessageDTO(DataTransferObject $dto, $httpCode)
     {
-        return self::getMessage($dto->getSuccess(), $dto->getInclude(), $dto->getIndex(), $dto->getMessage(), $http_code, null, $dto->getData(), $dto->getErrors());
+        $returnObject = new ReturnObject();
+        $returnObject->setHttpCode($httpCode);
+        return $returnObject->getResultDto($dto);
     }
 
-    private static function getMessage($success, $include = [], $index = false, $message, $code, $params = [], $data = [], $errors = null)
+    private static function getMessage($success, $include = [], $index = false, $message, $code, $params = [], $data = [], $errors = null, $internalCode = 0)
     {
-        $retArr = array(
-            "success" => $success,
-            "code" => $code,
-            "msg" => $message,
-            "message" => $message,
-        );
+        $returnObject = new ReturnObject();
+        $returnObject->setHttpCode($code);
+        $returnObject->setInternalCode($internalCode);
 
-        if (!is_null($include)) {
-            $retArr["include"] = $include;
-        }
+        $returnObject->setSuccess($success);
+        $returnObject->setData($data);
+        $returnObject->setMessage($message);
+        $returnObject->setIndex($index);
+        $returnObject->setInclude($include);
+        $returnObject->setErrors($errors);
 
-        if (!is_null($errors)) {
-            $retArr["errors"] = $errors;
-        }
-
-        $data = gettype($data) != 'array' ? [$data] : $data;
-
-        if ($index) {
-            return array_merge($retArr, $data);
-        }
-
-        if (isset($data[0]) && count($data) > 1) {
-
-            $retArr = array_merge($retArr, [
-                "totalindata" => count($data),
-            ]);
-        }
-
-        if (count($data) > 0) {
-            $retArr['data'] = count($data) == 1 ? $data[0] : $data;
-        }
-
-        if (is_array($params)) {
-            foreach ($params as $name => $value) {
-                if (!in_array($value, self::$_forbidenNames)) {
-                    $retArr[] = $value;
-                }
-            }
-        }
-
-        if (empty($retArr["data"])) {
-            unset($retArr["data"]); 
-        }
-
-        return $retArr;
+        return $returnObject->getResult();
     }
 
     public static function successMessage($message, $code, $params = [], $data = [])
@@ -98,17 +65,15 @@ class ReturnPrepare extends ServiceProvider
 
     public static function makeMessage($success, $message, $code, $data = null)
     {
-        $retArr = array(
-            "success" => $success,
-            "code" => $code,
-            "msg" => $message,
-            "message" => $message,
+
+        return self::getMessage(
+            $success,
+            [],
+            false,
+            $message,
+            $code,
+            [],
+            $data
         );
-
-        if (isset($data)) {
-            $retArr['data'] = $data;
-        }
-
-        return (object) $retArr;
     }
 }

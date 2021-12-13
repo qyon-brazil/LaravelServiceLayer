@@ -7,7 +7,8 @@ use Illuminate\Support\ServiceProvider;
 /**
  * DataTransferObject Classe que serve para transferência de dados entre o Service e o Controller
  *
- * @author Diego Silva <diego@qyon.com>
+ * @author Diego Silva <diego.silva@qyon.com>
+ *
  */
 class DataTransferObject extends ServiceProvider
 {    
@@ -17,6 +18,20 @@ class DataTransferObject extends ServiceProvider
      * @var bool
      */
     private $success;
+
+    /**
+     * include
+     *
+     * @var array
+     */
+    private $include;
+
+    /**
+     * index
+     *
+     * @var bool
+     */
+    private $index;
 
     /**
      * message
@@ -32,11 +47,21 @@ class DataTransferObject extends ServiceProvider
      */
     private $data;
 
+    /**
+     * errors
+     *
+     * @var mixed
+     */
+    private $errors;
+
     public function __construct()
     {
         $this->success = false;
+        $this->include = [];
+        $this->index = false;
         $this->message = "";
         $this->data = null;
+        $this->errors = null;
     }
 
     /**
@@ -48,6 +73,28 @@ class DataTransferObject extends ServiceProvider
     public function setSuccess($value)
     {
         $this->success = $value;
+    }
+
+    /**
+     * setInclude
+     *
+     * @param  array $value
+     * @return void
+     */
+    public function setInclude($value)
+    {
+        $this->include = $value;
+    }
+
+    /**
+     * setIndex
+     *
+     * @param  bool $value
+     * @return void
+     */
+    public function setIndex($value)
+    {
+        $this->index = $value;
     }
     
     /**
@@ -71,6 +118,17 @@ class DataTransferObject extends ServiceProvider
     {
         $this->data = $value;
     }
+
+    /**
+     * errors
+     *
+     * @param  mixed $value
+     * @return void
+     */
+    public function setErrors($value)
+    {
+        $this->errors = $value;
+    }    
     
     /**
      * success
@@ -80,6 +138,26 @@ class DataTransferObject extends ServiceProvider
     public function getSuccess()
     {
         return $this->success;
+    }
+
+    /**
+     * include
+     *
+     * @return bool
+     */
+    public function getInclude()
+    {
+        return $this->include;
+    }
+
+    /**
+     * include
+     *
+     * @return bool
+     */
+    public function getIndex()
+    {
+        return $this->index;
     }
     
     /**
@@ -101,4 +179,42 @@ class DataTransferObject extends ServiceProvider
     {
         return $this->data;
     }        
+
+     /**
+     * errors
+     *
+     * @return mixed $value
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }            
+
+    /**
+     * successMessage
+     *
+     * @param  string $message
+     * @param  mixed $data
+     * @return void
+     */
+    public function successMessage($message,$data = null){
+        $this->setSuccess(true);
+        $this->setMessage($message); 
+        $this->setData($data);
+    }
+
+    /**
+     * errorMessage
+     *
+     * @param  string $message
+     * @param  mixed $data
+     * @param  mixed $error
+     * @return void
+     */
+    public function errorMessage($message,$data = null,$errors=null){
+        $this->setSuccess(false);
+        $this->setMessage($message); 
+        $this->setData($data);
+        $this->setErrors($errors);
+    }
 }

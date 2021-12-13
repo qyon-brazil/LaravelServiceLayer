@@ -2,7 +2,6 @@
 
 namespace Qyon\ServiceLayer\Service\Contract;
 
-use Illuminate\Http\Request;
 use Qyon\ServiceLayer\DataTransferObject;
 
 /**
@@ -14,42 +13,51 @@ interface ServiceInterface
 {
         
     /**
+     * __construct
+     * 
+     * Opcionais
+     * 
+     * @param [Model] $model Uma instância da model
+     * @param [Array] $validation Uma instância da classe de validação
+     */
+    public function __construct();
+
+    /**
      * index
      *
      * @return DataTransferObject
      */
-    public function index(Request $request);
-        
+    public function index();
         
     /**
-     * store
+     * Salva os dados
      *
-     * @param  mixed $request
+     * @param array $data
      * @return DataTransferObject
      */
-    public function store(Request $request);
+    public function store($data);
     
     /**
-     * show
+     * Exibe um registro
      *
-     * @param  mixed $id
+     * @param mixed $id
      * @return DataTransferObject
      */
     public function show($id);
     
     /**
-     * update
+     * Atualiza um registro
      *
-     * @param  mixed $request
-     * @param  mixed $id
+     * @param [array] $data
+     * @param mixed $id
      * @return DataTransferObject
      */
-    public function update($request, $id);
+    public function update($data, $id);
         
     /**
-     * destroy
+     * Deleta um registro
      *
-     * @param  mixed $id
+     * @param mixed $id
      * @return DataTransferObject
      */
     public function destroy($id);

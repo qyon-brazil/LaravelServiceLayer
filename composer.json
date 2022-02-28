@@ -1,7 +1,11 @@
 {
-    "license": "MIT",
     "name": "qyon/servicelayer",
+    "license": "MIT",
     "description": "Service Layer with Data Transfer Object",
+    "require": {
+        "php":"^7.2|^8.0",
+        "laravel/framework": "^8.77"
+    },
     "autoload": {
         "psr-4": {
             "Qyon\\ServiceLayer\\": "src/"
@@ -10,17 +14,19 @@
     "authors": [
         {
             "name": "Diego Silva",
-            "email": "diego.silva@qyon.com"
+            "email": "diego.silva@qyon.com",
+            "role": "Developer"
         },
         {
             "name": "Luis Gustavo Santarosa",
-            "email": "gustavo.santarosa@qyon.com"
+            "email": "gustavo.santarosa@qyon.com",
+            "role": "Developer"
         }        
     ],
     "support": {
         "email": "diego.silva@qyon.com"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "extra": {
         "laravel": {
             "providers": [

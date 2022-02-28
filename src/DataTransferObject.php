@@ -11,7 +11,7 @@ use Illuminate\Support\ServiceProvider;
  *
  */
 class DataTransferObject extends ServiceProvider
-{    
+{
     /**
      * success
      *
@@ -39,7 +39,7 @@ class DataTransferObject extends ServiceProvider
      * @var string
      */
     private $message;
-    
+
     /**
      * data
      *
@@ -54,6 +54,13 @@ class DataTransferObject extends ServiceProvider
      */
     private $errors;
 
+    /**
+     * internalCode
+     *
+     * @var mixed
+     */
+    private $internalCode;
+
     public function __construct()
     {
         $this->success = false;
@@ -62,6 +69,7 @@ class DataTransferObject extends ServiceProvider
         $this->message = "";
         $this->data = null;
         $this->errors = null;
+        $this->internalCode = 0;
     }
 
     /**
@@ -96,7 +104,7 @@ class DataTransferObject extends ServiceProvider
     {
         $this->index = $value;
     }
-    
+
     /**
      * message
      *
@@ -107,7 +115,7 @@ class DataTransferObject extends ServiceProvider
     {
         $this->message = $value;
     }
-    
+
     /**
      * data
      *
@@ -128,8 +136,8 @@ class DataTransferObject extends ServiceProvider
     public function setErrors($value)
     {
         $this->errors = $value;
-    }    
-    
+    }
+
     /**
      * success
      *
@@ -159,7 +167,7 @@ class DataTransferObject extends ServiceProvider
     {
         return $this->index;
     }
-    
+
     /**
      * message
      *
@@ -168,9 +176,9 @@ class DataTransferObject extends ServiceProvider
     public function getMessage()
     {
         return $this->message;
-    }    
+    }
 
-     /**
+    /**
      * data
      *
      * @return mixed $value
@@ -178,9 +186,9 @@ class DataTransferObject extends ServiceProvider
     public function getData()
     {
         return $this->data;
-    }        
+    }
 
-     /**
+    /**
      * errors
      *
      * @return mixed $value
@@ -188,7 +196,28 @@ class DataTransferObject extends ServiceProvider
     public function getErrors()
     {
         return $this->errors;
-    }            
+    }
+
+
+    /**
+     * internalCode
+     *
+     * @return mixed
+     */
+    public function getInternalCode()
+    {
+        return $this->internalCode;
+    }
+    /**
+     * internalCode
+     *
+     * @param  mixed $code
+     * @return void
+     */
+    public function setInternalCode($code)
+    {
+        $this->internalCode = $code;
+    }
 
     /**
      * successMessage
@@ -197,9 +226,10 @@ class DataTransferObject extends ServiceProvider
      * @param  mixed $data
      * @return void
      */
-    public function successMessage($message,$data = null){
+    public function successMessage($message, $data = null)
+    {
         $this->setSuccess(true);
-        $this->setMessage($message); 
+        $this->setMessage($message);
         $this->setData($data);
     }
 
@@ -211,9 +241,10 @@ class DataTransferObject extends ServiceProvider
      * @param  mixed $error
      * @return void
      */
-    public function errorMessage($message,$data = null,$errors=null){
+    public function errorMessage($message, $data = null, $errors = null)
+    {
         $this->setSuccess(false);
-        $this->setMessage($message); 
+        $this->setMessage($message);
         $this->setData($data);
         $this->setErrors($errors);
     }

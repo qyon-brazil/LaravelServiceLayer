@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Base Service
+ * php version 7.4.16
+ *
+ * @category ServiceInterface
+ * @package  Qyon\ServiceLayer\Service
+ */
+
 namespace Qyon\ServiceLayer\Service;
 
 use Exception;
@@ -7,12 +15,6 @@ use Illuminate\Support\Facades\Validator;
 use Qyon\ServiceLayer\DataTransferObject;
 use Qyon\ServiceLayer\Service\Contract\ServiceInterface;
 
-/**
- * BaseService Classe base para as classes de serviço
- *
- * @author Diego Silva <diego.silva@qyon.com>
- * @author Guilherme Andreoti <guilherme.andreoti@qyon.com>
- */
 class BaseService implements ServiceInterface
 {
     /**
@@ -25,12 +27,12 @@ class BaseService implements ServiceInterface
     protected $model;
 
     /**
-     * __construct
+     * Construct function
      *
-     * @param [Model] $model Uma instância da model
-     * @param [Array] $validation Uma instância da classe de validação
+     * @param object|null $model      Model Principal
+     * @param object|null $validation Uma instância da classe de validação
      */
-    public function __construct($model = null, $validation = null)
+    public function __construct(?object $model = null, ?object $validation = null)
     {
         $this->dto = new DataTransferObject();
         $this->validation = $validation;
@@ -39,19 +41,19 @@ class BaseService implements ServiceInterface
 
     /**
      * Valida os dados
-     * 
+     *
      * @param [Array] $data 
      * @return void
      */
-    public function validate($data,$currentId = null)
+    public function validate($data, $currentId = null)
     {
         //Checks if the validate method have a ID param and, if necessary, sends it
         $method = new \ReflectionMethod(get_class($this->validation), 'rules');
-        $methodParams = $method->getParameters(); 
+        $methodParams = $method->getParameters();
 
-        if((count($methodParams) == 1 && $methodParams[0]->name == 'id' )){
+        if ((count($methodParams) == 1 && $methodParams[0]->name == 'id')) {
             Validator::validate($data, $this->validation->rules($currentId), $this->validation->messages());
-        }else{ 
+        } else {
             Validator::validate($data, $this->validation->rules(), $this->validation->messages());
         }
     }
@@ -79,10 +81,10 @@ class BaseService implements ServiceInterface
      *
      * @return Qyon\ServiceLayer\DataTransferObject
      */
-    public function index()
+    public function index(array $data, object $model): DataTransferObject
     {
-        $returnData = $this->getData(); 
-        $this->dto->successMessage('Successfully found',$returnData);
+        $returnData = $this->getData();
+        $this->dto->successMessage('Successfully found', $returnData);
         return $this->dto;
     }
 
@@ -92,12 +94,12 @@ class BaseService implements ServiceInterface
      * @param array $data
      * @return Qyon\ServiceLayer\DataTransferObject
      */
-    public function store($data)
+    public function store(array $data, object $model): DataTransferObject
     {
         $this->validate($data);
 
         $returnData = $this->model::create($data);
-        $this->dto->successMessage('Successfully created',$returnData);
+        $this->dto->successMessage('Successfully created', $returnData);
         return $this->dto;
     }
 
@@ -107,10 +109,19 @@ class BaseService implements ServiceInterface
      * @param mixed $id
      * @return Qyon\ServiceLayer\DataTransferObject
      */
-    public function show($id)
+
+     /**
+      * Undocumented function
+      *
+      * @param integer $id    Identificador principal
+      * @param object  $model Model Principal
+
+      * @return DataTransferObject
+      */
+    public function show(int $id, object $model): DataTransferObject
     {
         $returnData = $this->getData($id);
-        $this->dto->successMessage('Successfully found',$returnData);
+        $this->dto->successMessage('Successfully found', $returnData);
         return $this->dto;
     }
 
@@ -119,9 +130,10 @@ class BaseService implements ServiceInterface
      *
      * @param [array] $data
      * @param mixed $id
+     *
      * @return Qyon\ServiceLayer\DataTransferObject
      */
-    public function update($data, $id)
+    public function update($data, $id): DataTransferObject
     {
         $this->validate($data, $id);
 
@@ -131,7 +143,7 @@ class BaseService implements ServiceInterface
             throw new Exception("Not found", 406);
         }
 
-        $this->dto->successMessage('Successfully updated',$returnData);
+        $this->dto->successMessage('Successfully updated', $returnData);
         return $this->dto;
     }
 
@@ -139,9 +151,10 @@ class BaseService implements ServiceInterface
      * Deleta um registro
      *
      * @param mixed $id
+     *
      * @return Qyon\ServiceLayer\DataTransferObject
      */
-    public function destroy($id)
+    public function destroy($id): DataTransferObject
     {
         $returnData = $this->model::find($id)->delete();
 
@@ -149,7 +162,19 @@ class BaseService implements ServiceInterface
             throw new Exception("Not found", 406);
         }
 
-        $this->dto->successMessage('Successfully deleted',$returnData);
+        $this->dto->successMessage('Successfully deleted', $returnData);
+        return $this->dto;
+    }
+
+    /**
+     * Status function
+     *
+     * @param $model Model principal
+     *
+     * @return DataTransferObject
+     */
+    public function status($model): DataTransferObject
+    {
         return $this->dto;
     }
 }

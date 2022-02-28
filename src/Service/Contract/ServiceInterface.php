@@ -1,63 +1,88 @@
 <?php
 
+/**
+ * Service Interface
+ * php version 7.4.16
+ *
+ * @category Interface
+ * @package  Qyon\ServiceLayer\Service\Contract
+ */
+
 namespace Qyon\ServiceLayer\Service\Contract;
 
 use Qyon\ServiceLayer\DataTransferObject;
 
 /**
- * ServiceInterface Interface para as classes de serviço
+ * Service Interface
+ * Interface para as classes de serviço
  *
+ * @category Interface
+ * @package  Qyon\ServiceLayer\Service\Contract
  */
 interface ServiceInterface
 {
-        
     /**
-     * __construct
-     * 
-     * Opcionais
-     * 
-     * @param [Model] $model Uma instância da model
-     * @param [Array] $validation Uma instância da classe de validação
+     * Construct function
      */
     public function __construct();
 
     /**
-     * index
+     * Index function
+     *
+     * @param array  $data  Requisicao da rota
+     * @param object $model Model Principal
      *
      * @return DataTransferObject
      */
-    public function index();
-        
+    public function index(array $data, object $model): DataTransferObject;
+
     /**
-     * Salva os dados
+     * Store function
      *
-     * @param array $data
+     * @param array  $data  Requisicao da rota
+     * @param object $model Model Principal
+     *
      * @return DataTransferObject
      */
-    public function store($data);
-    
+    public function store(array $data, object $model): DataTransferObject;
+
     /**
-     * Exibe um registro
+     * Show function
      *
-     * @param mixed $id
+     * @param integer $id    Identificador principal
+     * @param object  $model Model Principal
+     *
      * @return DataTransferObject
      */
-    public function show($id);
-    
+    public function show(int $id, object $model): DataTransferObject;
+
     /**
-     * Atualiza um registro
+     * Update function
      *
-     * @param [array] $data
-     * @param mixed $id
+     * @param array   $data  Requisicao da rota
+     * @param integer $id    Identificador principal
+     * @param object  $model Model Principal
+     *
      * @return DataTransferObject
      */
-    public function update($data, $id);
-        
+    public function update(array $data, int $id, object $model): DataTransferObject;
+
     /**
-     * Deleta um registro
+     * Destroy function
      *
-     * @param mixed $id
+     * @param integer $id    Identificador principal
+     * @param object  $model Model Principal
+     *
      * @return DataTransferObject
      */
-    public function destroy($id);
+    public function destroy(int $id, object $model): DataTransferObject;
+
+    /**
+     * Status function
+     *
+     * @param object $model Model Principal
+     *
+     * @return DataTransferObject
+     */
+    public function status(object $model): DataTransferObject;
 }

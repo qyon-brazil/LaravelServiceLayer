@@ -18,13 +18,13 @@ use Illuminate\Support\ServiceProvider;
  */
 class DataTransferObject extends ServiceProvider
 {
-    private bool    $success;
-    private array   $include;
-    private bool    $index;
-    private string  $message;
+    private $success;
+    private $include;
+    private $index;
+    private $message;
     private $data;
-    private int     $internalCode;
-    private int     $httpCode;
+    private $internalCode;
+    private $httpCode;
 
     /**
      * __construct function

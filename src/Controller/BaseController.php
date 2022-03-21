@@ -75,11 +75,21 @@ class BaseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id Parametro identificador Principal
+     * @param mixed $id Parametro identificador Principal
      */
-    public function destroy(int $id)
+    public function destroy($id)
     {
         return $this->service->destroy($id)->getMessageDTO();
+    }
+
+    /**
+     * Store the specified resource from storage.
+     *
+     * @param  Request $request
+     */
+    public function store(Request $request)
+    {
+        return $this->service->store($request->all())->getMessageDTO();
     }
 
     /**

@@ -8,7 +8,7 @@
  * @package  Http\Controller
  */
 
-namespace App\Http\Controllers;
+namespace Qyon\ServiceLayer\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;

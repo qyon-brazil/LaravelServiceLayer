@@ -34,13 +34,11 @@ class BaseController extends Controller
     /**
      * Construct function
      *
-     * @param ServiceInterface $service Service sendo instanciando
-     * @param $model   Model Principal
+     * @param $service Service sendo instanciando
      */
-    public function __construct(ServiceInterface $service, $model)
+    public function __construct($service)
     {
         $this->service = $service;
-        $this->model   = $model;
     }
 
     /**
@@ -50,11 +48,7 @@ class BaseController extends Controller
      */
     public function index(Request $request)
     {
-        if (!isset($request->per_page)) {
-            $request->per_page = 50;
-        }
-
-        return $this->service->index($request->all(), $this->model)->getMessageDTO();
+        return $this->service->index($request->all())->getMessageDTO();
     }
 
     /**
@@ -65,7 +59,7 @@ class BaseController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        return $this->service->update($request->all(), $id, $this->model)->getMessageDTO();
+        return $this->service->update($request->all(), $id)->getMessageDTO();
     }
 
     /**
@@ -75,7 +69,7 @@ class BaseController extends Controller
      */
     public function show(int $id)
     {
-        return $this->service->show($id, $this->model)->getMessageDTO();
+        return $this->service->show($id)->getMessageDTO();
     }
 
     /**
@@ -85,7 +79,7 @@ class BaseController extends Controller
      */
     public function destroy(int $id)
     {
-        return $this->service->destroy($id, $this->model)->getMessageDTO();
+        return $this->service->destroy($id)->getMessageDTO();
     }
 
     /**
@@ -93,6 +87,6 @@ class BaseController extends Controller
      */
     public function status()
     {
-        return $this->service->status($this->model)->getMessageDTO();
+        return $this->service->status()->getMessageDTO();
     }
 }

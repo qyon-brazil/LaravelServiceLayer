@@ -57,7 +57,7 @@ class BaseController extends Controller
      * @param  mixed $request
      * @param  mixed $id
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, $id)
     {
         return $this->service->update($request->all(), $id)->getMessageDTO();
     }
@@ -65,9 +65,9 @@ class BaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id Parametro identificador Principal
+     * @param mixed $id Parametro identificador Principal
      */
-    public function show(int $id)
+    public function show($id)
     {
         return $this->service->show($id)->getMessageDTO();
     }

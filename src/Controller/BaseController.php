@@ -8,7 +8,7 @@
  * @package  Http\Controller
  */
 
-namespace App\Http\Controllers;
+namespace Qyon\ServiceLayer\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -57,7 +57,7 @@ class BaseController extends Controller
      * @param  mixed $request
      * @param  mixed $id
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, $id)
     {
         return $this->service->update($request->all(), $id)->getMessageDTO();
     }
@@ -65,9 +65,9 @@ class BaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id Parametro identificador Principal
+     * @param mixed $id Parametro identificador Principal
      */
-    public function show(int $id)
+    public function show($id)
     {
         return $this->service->show($id)->getMessageDTO();
     }
@@ -75,11 +75,21 @@ class BaseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id Parametro identificador Principal
+     * @param mixed $id Parametro identificador Principal
      */
-    public function destroy(int $id)
+    public function destroy($id)
     {
         return $this->service->destroy($id)->getMessageDTO();
+    }
+
+    /**
+     * Store the specified resource from storage.
+     *
+     * @param  Request $request
+     */
+    public function store(Request $request)
+    {
+        return $this->service->store($request->all())->getMessageDTO();
     }
 
     /**

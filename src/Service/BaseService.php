@@ -34,7 +34,7 @@ class BaseService
      * @param object|null $model      Model Principal
      * @param object|null $validation Uma instância da classe de validação
      */
-    public function __construct(?object $model = null, ?object $storeValidation = null,?object $updateValidation = null,?object $destroyValidation = null )
+    public function __construct(?object $model = null, ?object $storeValidation = null, ?object $updateValidation = null, ?object $destroyValidation = null)
     {
         $this->dto = new DataTransferObject();
         $this->storeValidation = $storeValidation;
@@ -46,44 +46,44 @@ class BaseService
     /**
      * Valida os dados
      *
-     * @param [Array] $data 
-     * @param string $caller Upper Case Http method  
+     * @param [Array] $data
+     * @param string $caller Upper Case Http method
      * @return void
      */
-    public function validate($data,$caller = null, $currentId = null, $customValidation = null)
+    public function validate($data, $caller = null, $currentId = null, $customValidation = null)
     {
-        //Checks if the validate method have a ID param and, if necessary, sends it
-        $method = new \ReflectionMethod(get_class($this->validation), 'rules');
-        $methodParams = $method->getParameters();
-
-        if($customValidation){
-            $validation = $customValidation; 
-        }else{
+        if ($customValidation) {
+            $validation = $customValidation;
+        } else {
             switch ($caller) {
                 case 'store':
-                    $validation = $this->storeValidation; 
+                    $validation = $this->storeValidation;
                     break;
                 case 'update':
-                    $validation = $this->updateValidation; 
+                    $validation = $this->updateValidation;
                     break;
                 case "destroy":
-                    $validation = $this->destroyValidation; 
+                    $validation = $this->destroyValidation;
                     break;
                 default:
-                    return; 
+                    return;
             }
         }
 
-        if(!$validation){
-            return; 
+        if (!$validation) {
+            return;
         }
+
+        //Checks if the validate method have a ID param and, if necessary, sends it
+        $method = new \ReflectionMethod(get_class($validation), 'rules');
+        $methodParams = $method->getParameters();
 
         // TODO Qyon: $validation->authorize();
 
         if ((count($methodParams) == 1 && $methodParams[0]->name == 'id')) {
-            Validator::validate($data, $this->validation->rules($currentId), $this->validation->messages());
+            Validator::validate($data, $validation->rules($currentId), $validation->messages());
         } else {
-            Validator::validate($data, $this->validation->rules(), $this->validation->messages());
+            Validator::validate($data, $validation->rules(), $validation->messages());
         }
     }
 
@@ -111,20 +111,20 @@ class BaseService
      */
     public function store(array $data): DataTransferObject
     {
-        $this->validate($data,'store');
+        $this->validate($data, 'store');
 
         $returnData = $this->model::create($data);
         $this->dto->successMessage('Successfully created', $returnData);
         return $this->dto;
     }
 
-     /**
-      * Show a single record
-      *
-      * @param mixed $id    Identificador principal
+    /**
+     * Show a single record
+     *
+     * @param mixed $id    Identificador principal
 
-      * @return Qyon\ServiceLayer\DataTransferObject
-      */
+     * @return Qyon\ServiceLayer\DataTransferObject
+     */
     public function show($id): DataTransferObject
     {
         $returnData = $this->model->find($id);
@@ -140,9 +140,9 @@ class BaseService
      *
      * @return Qyon\ServiceLayer\DataTransferObject
      */
-    public function update(Array $data, $id): DataTransferObject
+    public function update(array $data, $id): DataTransferObject
     {
-        $this->validate($data,'update', $id);
+        $this->validate($data, 'update', $id);
 
         $returnData = $this->model::find($id)->update($data);
 
@@ -163,7 +163,7 @@ class BaseService
      */
     public function destroy($id): DataTransferObject
     {
-        $this->validate($data,'destroy');
+        $this->validate($data, 'destroy');
 
         $returnData = $this->model::find($id)->delete();
 

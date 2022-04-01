@@ -8,7 +8,7 @@
  * @package  Qyon\Cryptography
  */
 
-namespace Qyon\ServiceLayer;
+namespace Qyon\ServiceLayer\Cryptography;
 
 
 class Cryptography

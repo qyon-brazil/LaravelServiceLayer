@@ -25,7 +25,6 @@ class BaseService
     protected $dto;
     protected $storeValidation;
     protected $updateValidation;
-    protected $destroyValidation;
     protected $model;
 
     /**
@@ -34,12 +33,11 @@ class BaseService
      * @param object|null $model      Model Principal
      * @param object|null $validation Uma instância da classe de validação
      */
-    public function __construct(?object $model = null, ?object $storeValidation = null, ?object $updateValidation = null, ?object $destroyValidation = null)
+    public function __construct(?object $model = null, ?object $storeValidation = null, ?object $updateValidation = null)
     {
         $this->dto = new DataTransferObject();
         $this->storeValidation = $storeValidation;
         $this->updateValidation = $updateValidation;
-        $this->destroyValidation = $destroyValidation;
         $this->model = $model;
     }
 
@@ -61,9 +59,6 @@ class BaseService
                     break;
                 case 'update':
                     $validation = $this->updateValidation;
-                    break;
-                case "destroy":
-                    $validation = $this->destroyValidation;
                     break;
                 default:
                     return;
@@ -163,8 +158,6 @@ class BaseService
      */
     public function destroy($id): DataTransferObject
     {
-        $this->validate($data, 'destroy');
-
         $returnData = $this->model::find($id)->delete();
 
         if ($returnData == 0) {

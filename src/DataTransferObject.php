@@ -244,7 +244,7 @@ class DataTransferObject extends ServiceProvider
 
         if (in_array(gettype($this->getData()), ["object"]) && !is_null($this->getData())) {
             $callback = array_merge($callback, [
-                "data" => $this->getData()->toArray()
+                "data" => (array) $this->getData()
             ]);
         }
 

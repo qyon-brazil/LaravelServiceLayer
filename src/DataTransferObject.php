@@ -243,9 +243,15 @@ class DataTransferObject extends ServiceProvider
         }
 
         if (in_array(gettype($this->getData()), ["object"]) && !is_null($this->getData())) {
-            $callback = array_merge($callback, [
-                "data" => (array) $this->getData()
-            ]);
+            if (method_exists($this->getData(), "toarray")) {
+                $callback = array_merge($callback, [
+                    "data" => $this->getData()->toarray()
+                ]);
+            } else {
+                $callback = array_merge($callback, [
+                    "data" => (array) $this->getData()
+                ]);
+            }
         }
 
         if (in_array(gettype($this->getData()), ["string", "numeric", "integer"]) && !empty($this->getData())) {

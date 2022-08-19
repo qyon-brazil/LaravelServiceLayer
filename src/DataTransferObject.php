@@ -191,12 +191,15 @@ class DataTransferObject extends ServiceProvider
      *
      * @param  string $message
      * @param  mixed $data
-     * @return void
+     * @return self
      */
-    public function successMessage($message, $data = null)
+    public function successMessage(string $message, $data = null, int $internalCode = 9000, $httpCode = 200)
     {
         $this->setMessage($message);
+        $this->setInternalCode($internalCode);
         $this->setData($data);
+        $this->setHttpCode($httpCode);
+        return $this;
     }
 
     /**

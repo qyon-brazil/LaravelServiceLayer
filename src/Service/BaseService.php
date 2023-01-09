@@ -50,9 +50,9 @@ class BaseService implements ServiceInterface
         $methodParams = $method->getParameters(); 
 
         if((count($methodParams) == 1 && $methodParams[0]->name == 'id' )){
-            Validator::validate($data, $this->validation->rules($currentId), $this->validation->messages());
-        }else{ 
-            Validator::validate($data, $this->validation->rules(), $this->validation->messages());
+            return Validator::validate($data, $this->validation->rules($currentId), $this->validation->messages());
+        }else{
+            return Validator::validate($data, $this->validation->rules(), $this->validation->messages());
         }
     }
 

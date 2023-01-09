@@ -65,8 +65,15 @@ class BaseService
             }
         }
 
+
         if (!$validation) {
             return;
+        }
+        
+        if((count($methodParams) == 1 && $methodParams[0]->name == 'id' )){
+            return Validator::validate($data, $this->validation->rules($currentId), $this->validation->messages());
+        } else {
+            return Validator::validate($data, $this->validation->rules(), $this->validation->messages());
         }
 
         //Checks if the validate method have a ID param and, if necessary, sends it
